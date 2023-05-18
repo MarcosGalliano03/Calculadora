@@ -88,16 +88,18 @@ function calcularDeudas() {
   function devoluciones() {
     let amigosConDeuda = arrayAmigos.filter((amigo) => amigo.diferencia < 0);
     let amigosConCredito = arrayAmigos.filter((amigo) => amigo.diferencia > 0);
-  
-    amigosConDeuda.forEach((amigoConDeuda) => {
-      amigosConCredito.forEach((amigoConCredito) => {
-        if (amigoConCredito.diferencia > 0) {
-          let deuda = Math.min(
+
+                                                                   /* marcos: 1500, mela: 0, agus: 0 */
+
+    amigosConDeuda.forEach((amigoConDeuda) => {                      /* mela: -500 */                                                         /* agus: -500 */
+        amigosConCredito.forEach((amigoConCredito) => {              /* marcos: 1000 */                                                       /* marcos: 500 */
+        if (amigoConCredito.diferencia > 0) {                        /* marcos.diferencia(1000) > 0 */                                        /* marcos.diferencia(500) > 0 */               
+          let deuda = Math.min(                                      /* deuda = al minimo entre 500(mela) y 1000(marcos)::::: deuda=500 */    /* deuda = 500 */
             Math.abs(amigoConDeuda.diferencia),
             amigoConCredito.diferencia
           );
-          amigoConDeuda.diferencia += deuda;
-          amigoConCredito.diferencia -= deuda;
+          amigoConDeuda.diferencia += deuda;                         /* mela.diferencia(-500) + deuda (500) */
+          amigoConCredito.diferencia -= deuda;                       /* marcos.diferencia(1000) - deuda(500) */
           
           let redondeo = Math.ceil(deuda / 10) * 10;
   

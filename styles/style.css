@@ -115,6 +115,8 @@ main{
 
 .divAmigoInfo:hover{
     background-color: rgb(201, 195, 195);
+    box-shadow: none;
+    transform: translateY(3px);
 }
 
 /* CONTAINER DE AMIGOS */
@@ -156,9 +158,9 @@ main{
 }
 
 .divAmigoDeMas ul li h1{
-    border-bottom: 1px solid rgb(255, 55, 0);
+    border-bottom: 1px solid rgb(231, 118, 87);
     padding-bottom: 3px;
-    color: rgb(255, 55, 0);
+    color: rgb(31, 109, 2);
 }
 
 
