@@ -101,9 +101,11 @@ function calcularDeudas() {
           
           let redondeo = Math.ceil(deuda / 10) * 10;
   
-          let devolucion = document.createElement("h5");
-          devolucion.textContent = `${amigoConDeuda.nombre} ---> $${redondeo} ---> ${amigoConCredito.nombre}`;
-          sugerencias.appendChild(devolucion);
+          if (redondeo !== 0) {
+            let devolucion = document.createElement("h5");
+            devolucion.textContent = `${amigoConDeuda.nombre} ----> $${redondeo} ----> ${amigoConCredito.nombre}`;
+            sugerencias.appendChild(devolucion);
+          }
         }
       });
     });
