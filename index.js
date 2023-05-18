@@ -57,6 +57,8 @@ function agregarAmigo() {
 let main = document.getElementById("main");
 let amigosDeMasul = document.getElementById("amigosDeMasul");
 let amigoDebeUl = document.getElementById("amigoDebeUl");
+let amigoPagoUl = document.getElementById("amigoPagoUl");
+let sugerencias = document.getElementById("sugerencias");
 
 function calcularDeudas() {
   const totalAmigos = arrayAmigos.length;
@@ -74,30 +76,89 @@ function calcularDeudas() {
     (amigos) => amigos.plata < deudaIndividual
   );
 
+  let amigosPagos = arrayAmigos.filter(
+    (amigos) => amigos.plata == deudaIndividual
+  );
+
+  amigoDeMas(amigosDeMas, deudaIndividual);
+  amigoQueDebe(amigosDeben, deudaIndividual);
+  amigoPago(amigosPagos);
+
+
+  function devoluciones() {
+    let amigosConDeuda = arrayAmigos.filter((amigo) => amigo.diferencia < 0);
+    let amigosConCredito = arrayAmigos.filter((amigo) => amigo.diferencia > 0);
+  
+    amigosConDeuda.forEach((amigoConDeuda) => {
+      amigosConCredito.forEach((amigoConCredito) => {
+        if (amigoConCredito.diferencia > 0) {
+          let deuda = Math.min(
+            Math.abs(amigoConDeuda.diferencia),
+            amigoConCredito.diferencia
+          );
+          amigoConDeuda.diferencia += deuda;
+          amigoConCredito.diferencia -= deuda;
+          
+          let redondeo = Math.ceil(deuda / 10) * 10;
+  
+          let devolucion = document.createElement("h5");
+          devolucion.textContent = `${amigoConDeuda.nombre} ---> $${redondeo} ---> ${amigoConCredito.nombre}`;
+          sugerencias.appendChild(devolucion);
+        }
+      });
+    });
+  }
+  
+  devoluciones();
+}
+
+/* FUNCIONES CHICAS */
+
+function amigoDeMas(amigosDeMas, deudaIndividual) {
   amigosDeMas.forEach((amigo) => {
     let li = document.createElement("li");
     let h1 = document.createElement("h1");
     h1.classList.add("h1AmigoDeMas");
     let recibe = amigo.plata - deudaIndividual;
 
-    h1.innerHTML = `se le debe $${recibe} a ${amigo.nombre}`;
+    h1.innerHTML = `se le debe $${Math.floor(recibe)} a ${amigo.nombre}`;
 
     li.appendChild(h1);
     amigosDeMasul.appendChild(li);
-  });
 
+    amigo.diferencia = recibe;
+  });
+}
+
+function amigoQueDebe(amigosDeben, deudaIndividual) {
   amigosDeben.forEach((amigo) => {
     let li = document.createElement("li");
     let h1 = document.createElement("h1");
     h1.classList.add("h1AmigoDebe");
     let debe = deudaIndividual - amigo.plata;
 
-    h1.innerHTML = `${amigo.nombre} debe $${debe}`;
+    h1.innerHTML = `${amigo.nombre} debe $${Math.floor(debe)}`;
 
     li.appendChild(h1);
     amigoDebeUl.appendChild(li);
+
+    amigo.diferencia = Math.floor(amigo.plata - deudaIndividual) + 1;
   });
 }
+
+function amigoPago(amigosPagos) {
+  amigosPagos.forEach((amigo) => {
+    let li = document.createElement("li");
+    let h1 = document.createElement("h1");
+    h1.classList.add("h1AmigoPago");
+
+    h1.innerHTML = `${amigo.nombre} debe $0`;
+
+    li.appendChild(h1);
+    amigoPagoUl.appendChild(li);
+  });
+}
+
 /* let sugerenciasUl = document.createElement("ul"); // Cambiado de "div" a "ul"
 sugerenciasUl.classList.add("sugerenciasUl"); // Cambiado de "sugerenciasDiv" a "sugerenciasUl"
 

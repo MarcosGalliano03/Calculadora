@@ -130,6 +130,7 @@ main{
     justify-content: space-around;
     margin-left: auto;
     margin-right: auto;
+    box-shadow: 7px 6px 3px rgba(0, 0, 0, 0.7);
 }
 
 
@@ -139,15 +140,25 @@ main{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    border-bottom: 1px solid black;
     font-size: 10px;
     height: 100%;
-    padding: 10px;
+    padding: 30px;
+    border-bottom: 1px solid black;
 }
 
 .divAmigoDeMas ul{
-    margin: auto;
     list-style: none;
+    text-align: center;
+}
+
+.divAmigoDeMas ul li{
+    margin-top: 25px;
+}
+
+.divAmigoDeMas ul li h1{
+    border-bottom: 1px solid rgb(255, 55, 0);
+    padding-bottom: 3px;
+    color: rgb(255, 55, 0);
 }
 
 
@@ -159,9 +170,89 @@ main{
     margin: 10px;
     display: flex;
     flex-direction: column;
+    padding: 10px;
 }
 
 .amigosDeben ul{
+    list-style: none;
+    text-align: center;
+}
+
+.amigosDeben ul li{
+    margin-top: 25px;
+}
+
+.amigosDeben ul li h1{
+    border-bottom: 1px solid rgb(255, 0, 0);
+    padding-bottom: 3px;
+    color: red;
+}
+
+/* AMIGOS PAGOS */
+
+.amigosPagos{
+    height: 100%;
+    font-size: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.amigosPagos ul{
     margin: auto;
     list-style: none;
+}
+
+.amigosPagos ul li h1{
+    border-bottom: 1px solid rgb(13, 152, 25);
+    padding-bottom: 3px;
+    color: rgb(7, 109, 16);
+}
+
+
+/* SUGERENCIAS */
+
+#sugerencias{
+    min-height: 200px;
+    margin-top: 30px;
+    background-color: rgb(201, 195, 195);
+    border-radius: 16px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 7px 6px 3px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#sugerencias h5{
+    font-size: 15px;
+}
+
+
+/* BOTON CALCULAR */
+
+.buttonJoda{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.buttonJoda button{
+    padding: 10px;
+    border-radius: 16px;
+    border: 1px solid grey;
+    font-size: 16px;
+    box-shadow: 7px 6px 3px rgba(0, 0, 0, 0.7);
+    transition: 0.3s;
+    background-color: rgb(169, 148, 146);
+    font-weight: bold;
+}
+
+.buttonJoda button:active{
+    box-shadow: none;
+    transform: translateY(3px);
 }
