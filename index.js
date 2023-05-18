@@ -2,40 +2,40 @@ let arrayAmigos = [];
 let amigosAgregados = document.getElementById("amigosAgregados");
 
 function colocarAmigos() {
-    amigosAgregados.innerHTML = ""; // Limpiar el contenido actual antes de agregar los amigos nuevamente
-  
-    arrayAmigos.forEach((amigo, i) => {
-      let divAmigoInfo = document.createElement("div");
-      divAmigoInfo.classList.add("divAmigoInfo");
-  
-      let h1Nombre = document.createElement("h1");
-      h1Nombre.textContent = amigo.nombre;
-  
-      let botonClose = document.createElement("button");
-      botonClose.classList.add("buttonClose");
-      botonClose.textContent = "X";
-  
-      // Agregar controlador de eventos para eliminar al amigo
-      botonClose.addEventListener("click", () => {
-        eliminarAmigo(i);
-      });
-  
-      let h1Plata = document.createElement("h1");
-      h1Plata.classList.add("plata");
-      h1Plata.textContent = `$ ${amigo.plata}`;
-  
-      divAmigoInfo.appendChild(h1Nombre);
-      divAmigoInfo.appendChild(h1Plata);
-      divAmigoInfo.appendChild(botonClose);
-  
-      amigosAgregados.appendChild(divAmigoInfo);
+  amigosAgregados.innerHTML = ""; // Limpiar el contenido actual antes de agregar los amigos nuevamente
+
+  arrayAmigos.forEach((amigo, i) => {
+    let divAmigoInfo = document.createElement("div");
+    divAmigoInfo.classList.add("divAmigoInfo");
+
+    let h1Nombre = document.createElement("h1");
+    h1Nombre.textContent = amigo.nombre;
+
+    let botonClose = document.createElement("button");
+    botonClose.classList.add("buttonClose");
+    botonClose.textContent = "X";
+
+    // Agregar controlador de eventos para eliminar al amigo
+    botonClose.addEventListener("click", () => {
+      eliminarAmigo(i);
     });
-  }
-  
-  function eliminarAmigo(index) {
-    arrayAmigos.splice(index, 1);
-    colocarAmigos();
-  }
+
+    let h1Plata = document.createElement("h1");
+    h1Plata.classList.add("plata");
+    h1Plata.textContent = `$ ${amigo.plata}`;
+
+    divAmigoInfo.appendChild(h1Nombre);
+    divAmigoInfo.appendChild(h1Plata);
+    divAmigoInfo.appendChild(botonClose);
+
+    amigosAgregados.appendChild(divAmigoInfo);
+  });
+}
+
+function eliminarAmigo(index) {
+  arrayAmigos.splice(index, 1);
+  colocarAmigos();
+}
 
 function agregarAmigo() {
   let amigoInput = document.getElementById("amigoInput").value;
@@ -45,9 +45,85 @@ function agregarAmigo() {
   let amigo = {
     nombre: amigoEnMayusculas,
     plata: cantidad,
+    diferencia: null,
   };
 
   arrayAmigos.push(amigo);
   console.log(arrayAmigos);
   colocarAmigos();
+  console.log(arrayAmigos.length);
 }
+
+let main = document.getElementById("main");
+let amigosDeMasul = document.getElementById("amigosDeMasul");
+let amigoDebeUl = document.getElementById("amigoDebeUl");
+
+function calcularDeudas() {
+  const totalAmigos = arrayAmigos.length;
+  const totalPlata = arrayAmigos.reduce(
+    (total, amigo) => total + parseInt(amigo.plata),
+    0
+  );
+  const deudaIndividual = totalPlata / totalAmigos;
+
+  let amigosDeMas = arrayAmigos.filter(
+    (amigos) => amigos.plata > deudaIndividual
+  );
+
+  let amigosDeben = arrayAmigos.filter(
+    (amigos) => amigos.plata < deudaIndividual
+  );
+
+  amigosDeMas.forEach((amigo) => {
+    let li = document.createElement("li");
+    let h1 = document.createElement("h1");
+    h1.classList.add("h1AmigoDeMas");
+    let recibe = amigo.plata - deudaIndividual;
+
+    h1.innerHTML = `se le debe $${recibe} a ${amigo.nombre}`;
+
+    li.appendChild(h1);
+    amigosDeMasul.appendChild(li);
+  });
+
+  amigosDeben.forEach((amigo) => {
+    let li = document.createElement("li");
+    let h1 = document.createElement("h1");
+    h1.classList.add("h1AmigoDebe");
+    let debe = deudaIndividual - amigo.plata;
+
+    h1.innerHTML = `${amigo.nombre} debe $${debe}`;
+
+    li.appendChild(h1);
+    amigoDebeUl.appendChild(li);
+  });
+}
+/* let sugerenciasUl = document.createElement("ul"); // Cambiado de "div" a "ul"
+sugerenciasUl.classList.add("sugerenciasUl"); // Cambiado de "sugerenciasDiv" a "sugerenciasUl"
+
+arrayAmigos.forEach((amigo) => {
+  let sugerencia = document.createElement("li"); // Cambiado de "textContent" a elemento de lista "<li>"
+
+  if (amigo.plata < deudaIndividual) {
+    const deuda = deudaIndividual - amigo.plata;
+    sugerencia.textContent = `${amigo.nombre} debe dar $${deuda.toFixed(2)} a:`;
+
+    const amigosQueReciben = arrayAmigos.filter((otroAmigo) => otroAmigo.plata > deudaIndividual);
+    const amigoRecibe = amigosQueReciben[Math.floor(Math.random() * amigosQueReciben.length)]; // Selección aleatoria de un amigo que recibe
+    const deudaAmigoRecibe = deudaIndividual - amigoRecibe.plata;
+    sugerencia.textContent += ` ${amigoRecibe.nombre}`;
+
+  } else if (amigo.plata > deudaIndividual) {
+    const deuda = amigo.plata - deudaIndividual;
+    sugerencia.textContent = `${amigo.nombre} debe recibir $${deuda.toFixed(2)} de:`;
+
+    const amigosQueDan = arrayAmigos.filter((otroAmigo) => otroAmigo.plata < deudaIndividual);
+    const amigoDa = amigosQueDan // Selección aleatoria de un amigo que da
+    const deudaAmigoDa = deudaIndividual - amigoDa.plata;
+    sugerencia.textContent += ` ${amigoDa.nombre} (${deudaAmigoDa.toFixed(2)})`;
+  }
+
+  sugerenciasUl.appendChild(sugerencia);
+});
+
+main.appendChild(sugerenciasUl); */

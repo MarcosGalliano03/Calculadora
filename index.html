@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <main>
+    <main id="main">
         <div class="divison"></div>
         <div class="agregaramigos">
             <label for="">AGREGAR AMIGOS</label>
@@ -25,6 +25,17 @@
 
         <div id="amigosAgregados">
         </div>
+        <button onclick=calcularDeudas()>calculadora</button>
+
+        <div class="containerAmigosDebts">
+            <div class="divAmigoDeMas">
+                <ul id="amigosDeMasul"></ul>
+            </div>
+            <div class="amigosDeben">     
+                <ul id="amigoDebeUl"></ul>           
+            </div>
+        </div>
+
     </main>
     <script src="./index.js"></script>
 </body>

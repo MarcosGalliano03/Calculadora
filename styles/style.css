@@ -116,3 +116,52 @@ main{
 .divAmigoInfo:hover{
     background-color: rgb(201, 195, 195);
 }
+
+/* CONTAINER DE AMIGOS */
+
+.containerAmigosDebts{
+    height: 100%;
+    width: 90%;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(201, 195, 195);
+    border-radius: 16px;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* AMIGO DE MAS */
+
+.divAmigoDeMas{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border-bottom: 1px solid black;
+    font-size: 10px;
+    height: 100%;
+    padding: 10px;
+}
+
+.divAmigoDeMas ul{
+    margin: auto;
+    list-style: none;
+}
+
+
+/* AMIGOS DEBEN */
+
+.amigosDeben{
+    height: 100%;
+    font-size: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.amigosDeben ul{
+    margin: auto;
+    list-style: none;
+}
